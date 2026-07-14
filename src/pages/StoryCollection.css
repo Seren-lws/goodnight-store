@@ -1,0 +1,109 @@
+.collection-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 20px 40px;
+  flex: 1;
+}
+
+.collection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.collection-header h1 {
+  font-size: 20px;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--color-text-soft);
+  flex-shrink: 0;
+}
+
+.header-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.collection-hint {
+  font-size: 14px;
+  color: var(--color-text-faint);
+  text-align: center;
+}
+
+.collection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.collection-empty {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-faint);
+  padding: 40px 20px;
+}
+
+.story-card {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.story-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+.story-card-genre {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-lamp);
+}
+
+.story-card-date {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--color-text-faint);
+}
+
+.story-card-arrow {
+  font-size: 12px;
+  color: var(--color-text-faint);
+}
+
+.story-card-text {
+  padding: 0 16px 14px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.story-card-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 14px;
+}
+
+.note-action-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--color-text-soft);
+  background: var(--color-bg);
+}

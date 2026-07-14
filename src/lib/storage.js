@@ -1,5 +1,6 @@
 const NOTES_KEY = 'goodnight-store:notes';
 const SETTINGS_KEY = 'goodnight-store:settings';
+const STORIES_KEY = 'goodnight-store:stories';
 
 export function loadNotes() {
   try {
@@ -25,4 +26,17 @@ export function loadSettings() {
 
 export function saveSettings(settings) {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+export function loadStories() {
+  try {
+    const raw = localStorage.getItem(STORIES_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveStories(stories) {
+  localStorage.setItem(STORIES_KEY, JSON.stringify(stories));
 }
