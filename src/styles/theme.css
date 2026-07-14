@@ -1,0 +1,57 @@
+:root {
+  /* 深夜背景 —— 温暖的靛紫，不是纯黑 */
+  --color-bg: #1c1830;
+  --color-bg-deep: #14111f;
+
+  /* 新拟态凸起面：比背景浅一点，形成"同色系浮起"的质感 */
+  --color-surface: #241f3a;
+  --color-surface-light: #2c2648;
+
+  --shadow-dark: rgba(8, 6, 16, 0.6);
+  --shadow-light: rgba(140, 120, 190, 0.12);
+
+  /* 文字 */
+  --color-text: #f3eefc;
+  --color-text-soft: #b3a8cc;
+  --color-text-faint: #7a7096;
+
+  /* 便利店灯光暖色系 */
+  --color-lamp: #ffc98b;
+  --color-lamp-glow: rgba(255, 201, 139, 0.35);
+  --color-pink: #ff9db3;
+  --color-mint: #8de0c9;
+  --color-lavender: #b3a1e6;
+
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  --font-body: 'Nunito', 'PingFang SC', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+    'Microsoft YaHei', sans-serif;
+  --font-round: 'Baloo 2', var(--font-body);
+}
+
+/* 新拟态：凸起 */
+.neu-raised {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
+}
+
+/* 新拟态：按下/凹陷 */
+.neu-pressed {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+}
+
+/* 新拟态：可点击元素的过渡 */
+.neu-interactive {
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+  cursor: pointer;
+}
+.neu-interactive:active {
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  transform: scale(0.98);
+}

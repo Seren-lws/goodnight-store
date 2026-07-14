@@ -1,0 +1,91 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 0 20px 40px;
+}
+
+.sky {
+  width: 100%;
+  height: 140px;
+  position: relative;
+  flex-shrink: 0;
+  background-image: radial-gradient(1.5px 1.5px at 10% 30%, rgba(255, 255, 255, 0.85) 50%, transparent 51%),
+    radial-gradient(1px 1px at 60% 15%, rgba(255, 255, 255, 0.6) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 82% 45%, rgba(255, 255, 255, 0.75) 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 55%, rgba(255, 255, 255, 0.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 92% 75%, rgba(255, 255, 255, 0.8) 50%, transparent 51%),
+    radial-gradient(1px 1px at 18% 80%, rgba(255, 255, 255, 0.55) 50%, transparent 51%),
+    radial-gradient(1px 1px at 45% 35%, rgba(255, 255, 255, 0.5) 50%, transparent 51%);
+}
+
+.moon {
+  position: absolute;
+  top: 28px;
+  right: 16%;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 32%, #fff7e6, var(--color-lamp) 70%);
+  box-shadow: 0 0 40px 10px var(--color-lamp-glow);
+}
+
+.store-sign {
+  width: 100%;
+  padding: 26px 20px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.store-sign h1 {
+  font-size: 26px;
+  color: var(--color-lamp);
+  text-shadow: 0 0 18px var(--color-lamp-glow);
+  letter-spacing: 2px;
+}
+
+.store-tagline {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--color-text-faint);
+  letter-spacing: 1px;
+}
+
+.shelf-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.shelf-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 26px 12px;
+  text-align: center;
+}
+
+.shelf-icon {
+  font-size: 32px;
+}
+
+.shelf-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.shelf-desc {
+  font-size: 12px;
+  color: var(--color-text-faint);
+}
+
+.home-footnote {
+  margin-top: 28px;
+  font-size: 12px;
+  color: var(--color-text-faint);
+  text-align: center;
+}

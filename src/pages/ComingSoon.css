@@ -1,0 +1,60 @@
+.coming-soon-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 20px 40px;
+  flex: 1;
+}
+
+.coming-soon-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.coming-soon-header h1 {
+  font-size: 20px;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--color-text-soft);
+  flex-shrink: 0;
+}
+
+.header-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.coming-soon-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 60px 30px;
+  text-align: center;
+}
+
+.coming-soon-icon {
+  font-size: 48px;
+}
+
+.coming-soon-text {
+  color: var(--color-text-soft);
+  font-size: 15px;
+}
+
+.coming-soon-note {
+  color: var(--color-text-faint);
+  font-size: 13px;
+}

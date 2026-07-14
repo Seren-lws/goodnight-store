@@ -1,0 +1,89 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 20px 40px;
+  flex: 1;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.settings-header h1 {
+  font-size: 20px;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--color-text-soft);
+  flex-shrink: 0;
+}
+
+.header-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.settings-section {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settings-section h2 {
+  font-size: 16px;
+  color: var(--color-lamp);
+}
+
+.settings-desc {
+  font-size: 13px;
+  color: var(--color-text-faint);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.field-label {
+  font-size: 13px;
+  color: var(--color-text-soft);
+  margin-top: 6px;
+}
+
+.field-input {
+  border-radius: var(--radius-md);
+  padding: 4px 14px;
+}
+
+.field-input input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.field-input input::placeholder {
+  color: var(--color-text-faint);
+}
+
+.save-btn {
+  align-self: flex-end;
+  margin-top: 8px;
+  padding: 10px 22px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-lamp);
+}
