@@ -1,50 +1,65 @@
 .home-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
   flex: 1;
-  padding: 12px 10px 40px;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+/* p5 氛围层铺满 */
+.night-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.night-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 店面蹲在画面下方 */
+.store-wrap {
+  position: absolute;
+  left: 4%;
+  bottom: 78px;
+  width: 76%;
+  max-width: 340px;
+  z-index: 2;
 }
 
 .store-scene {
   width: 100%;
-  max-width: 420px;
   height: auto;
   display: block;
 }
 
-/* 星星闪烁 */
-.star {
-  fill: #fff;
-  opacity: 0.8;
-  animation: twinkle 3.2s ease-in-out infinite;
-}
-.star-d1 {
-  animation-delay: 0.8s;
-}
-.star-d2 {
-  animation-delay: 1.6s;
-}
-.star-d3 {
-  animation-delay: 2.4s;
+.home-captions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  z-index: 2;
+  text-align: center;
 }
 
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.85;
-  }
-  50% {
-    opacity: 0.25;
-  }
+.home-hint {
+  font-size: 13px;
+  color: var(--color-text-soft);
+}
+
+.home-footnote {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--color-text-faint);
 }
 
 /* 招牌文字 */
 .sign-text {
   font-family: var(--font-round);
-  font-size: 25px;
+  font-size: 21px;
   font-weight: 700;
-  letter-spacing: 6px;
+  letter-spacing: 5px;
   fill: var(--color-lamp);
   animation: sign-breathe 4s ease-in-out infinite;
 }
@@ -55,17 +70,27 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.82;
+    opacity: 0.8;
   }
 }
 
 /* 招牌小灯泡 */
 .bulb {
   fill: var(--color-lamp);
-  animation: twinkle 2.4s ease-in-out infinite;
+  animation: bulb-twinkle 2.4s ease-in-out infinite;
 }
 .bulb-d {
   animation-delay: 1.2s;
+}
+
+@keyframes bulb-twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
 
 /* 橱窗灯光呼吸 */
@@ -79,19 +104,19 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.86;
+    opacity: 0.85;
   }
 }
 
 /* 音符飘动 */
 .note-float {
-  font-size: 15px;
+  font-size: 13px;
   fill: var(--color-text-soft);
   animation: float-up 3s ease-in-out infinite;
 }
 .note-float-d {
   animation-delay: 1.5s;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 @keyframes float-up {
@@ -110,7 +135,7 @@
 
 /* 吊牌文字 */
 .tag-text {
-  font-size: 12px;
+  font-size: 10.5px;
   font-weight: 700;
   fill: #6b4a3a;
   letter-spacing: 1px;
@@ -118,7 +143,7 @@
 
 /* 猫尾巴摇 */
 .cat-tail {
-  transform-origin: 208px 512px;
+  transform-origin: 178px 322px;
   animation: tail-sway 3.4s ease-in-out infinite;
 }
 
@@ -156,16 +181,4 @@
 }
 .hotspot:active {
   opacity: 0.8;
-}
-
-.home-hint {
-  margin-top: 10px;
-  font-size: 13px;
-  color: var(--color-text-soft);
-}
-
-.home-footnote {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--color-text-faint);
 }
