@@ -21,7 +21,8 @@ export default function NightCanvas() {
 
     const sketch = (p) => {
       let bg; // 预渲染的夜空渐变
-      let lampX, lampHeadY, groundY;
+      let moonImg; // 预渲染的月牙
+      let poleX, headX, lampHeadY, groundY, coneBaseX;
       const falling = [];
       const landed = [];
       const threads = [];
@@ -43,20 +44,38 @@ export default function NightCanvas() {
       }
 
       function layout() {
-        lampX = p.width * 0.86;
+        poleX = p.width * 0.92;
         lampHeadY = p.height * 0.09;
-        groundY = p.height - 64;
+        headX = poleX - 38;
+        groundY = p.height - 56;
+        // 光锥斜向左下照，星星和光都落在这里
+        coneBaseX = headX - (groundY - lampHeadY) * 0.2;
+      }
+
+      function renderMoon() {
+        const g = p.createGraphics(120, 120);
+        g.noStroke();
+        g.fill(255, 224, 178);
+        g.circle(60, 60, 84);
+        // 挖出月牙缺口（透明，不会露出难看的暗圆盘）
+        g.erase();
+        g.circle(78, 46, 72);
+        g.noErase();
+        moonImg = g;
       }
 
       function spawnStar() {
         const c = STAR_COLORS[Math.floor(p.random(STAR_COLORS.length))];
+        const vy = p.random(0.6, 1.2);
         falling.push({
-          x: lampX + p.random(-10, 10),
-          y: lampHeadY + p.random(0, 14),
+          x: headX + p.random(-8, 8),
+          y: lampHeadY + p.random(4, 16),
           r: p.random(4, 9),
           rot: p.random(p.TWO_PI),
           vr: p.random(-0.04, 0.04),
-          vy: p.random(0.5, 1.1),
+          vy,
+          // 顺着光锥的方向微微向左飘
+          vx: -vy * p.random(0.12, 0.28),
           sway: p.random(p.TWO_PI),
           swayAmp: p.random(4, 14),
           col: c,
@@ -97,6 +116,7 @@ export default function NightCanvas() {
         p.frameRate(30);
         layout();
         renderBackground();
+        renderMoon();
 
         for (let i = 0; i < 34; i++) {
           twinkles.push({
@@ -111,7 +131,7 @@ export default function NightCanvas() {
             x: p.random(p.width),
             y: p.random(-p.height * 0.3, p.height * 0.6),
             len: p.random(26, 80),
-            vy: p.random(1.0, 2.0),
+            vy: p.random(2.4, 4.2),
             alpha: p.random(8, 20),
           });
         }
@@ -139,15 +159,12 @@ export default function NightCanvas() {
 
         // 月亮（雾里的一弯）
         const mx = p.width * 0.16;
-        const my = p.height * 0.13;
-        p.fill(255, 201, 139, 14);
-        p.circle(mx, my, 130);
-        p.fill(255, 201, 139, 26);
-        p.circle(mx, my, 78);
-        p.fill(255, 224, 178, 235);
-        p.circle(mx, my, 40);
-        p.fill(gradientColorAt(my));
-        p.circle(mx + 9, my - 6, 34);
+        const my = p.height * 0.12;
+        p.fill(255, 210, 160, 10);
+        p.circle(mx, my, 120);
+        p.fill(255, 210, 160, 16);
+        p.circle(mx, my, 76);
+        p.image(moonImg, mx - 30, my - 30, 60, 60);
 
         // 后层雾
         p.fill(120, 110, 170, 9);
@@ -156,16 +173,40 @@ export default function NightCanvas() {
           p.ellipse(fx, f.y, f.rx * 2, f.ry * 2);
         }
 
-        // 路灯
+        // 路灯：灯杆 + 弯臂 + 大灯头
         p.stroke(150, 145, 185, 90);
-        p.strokeWeight(3);
-        p.line(lampX + 14, lampHeadY, lampX + 14, groundY + 8);
-        p.line(lampX - 6, lampHeadY, lampX + 15, lampHeadY);
+        p.strokeWeight(4);
+        p.line(poleX, lampHeadY + 20, poleX, groundY + 8);
+        p.noFill();
+        p.arc(poleX - 20, lampHeadY + 20, 40, 40, -p.HALF_PI, 0);
+        p.line(poleX - 20, lampHeadY, headX + 10, lampHeadY);
         p.noStroke();
-        p.fill(210, 220, 255, 30);
-        p.circle(lampX, lampHeadY + 2, 46);
-        p.fill(225, 232, 255, 170);
-        p.ellipse(lampX, lampHeadY + 1, 20, 5);
+        // 灯头往左斜下照的光锥
+        const ctx = p.drawingContext;
+        ctx.save();
+        const grad = ctx.createLinearGradient(headX, lampHeadY, coneBaseX, groundY);
+        grad.addColorStop(0, 'rgba(215, 225, 255, 0.16)');
+        grad.addColorStop(1, 'rgba(215, 225, 255, 0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(headX - 16, lampHeadY + 8);
+        ctx.lineTo(headX + 16, lampHeadY + 8);
+        ctx.lineTo(coneBaseX + 62, groundY);
+        ctx.lineTo(coneBaseX - 62, groundY);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        // 大灯头（微微倾斜，罩向左下）
+        p.push();
+        p.translate(headX, lampHeadY);
+        p.rotate(0.12);
+        p.fill(210, 220, 255, 34);
+        p.ellipse(0, 4, 78, 46);
+        p.fill(58, 52, 92, 255);
+        p.rect(-20, -10, 40, 13, 6);
+        p.fill(232, 238, 255, 210);
+        p.ellipse(0, 4, 34, 9);
+        p.pop();
 
         // 光雨丝
         p.strokeWeight(1);
@@ -176,7 +217,7 @@ export default function NightCanvas() {
           if (th.y > groundY + 20) {
             th.x = p.random(p.width);
             th.y = p.random(-p.height * 0.25, -20);
-            th.vy = p.random(1.0, 2.0);
+            th.vy = p.random(2.4, 4.2);
           }
         }
         p.noStroke();
@@ -186,6 +227,7 @@ export default function NightCanvas() {
         for (let i = falling.length - 1; i >= 0; i--) {
           const s = falling[i];
           s.y += s.vy;
+          s.x += s.vx;
           s.rot += s.vr;
           const wobble = Math.sin(t * 0.02 + s.sway) * s.swayAmp * 0.06;
           s.x += wobble * 0.4;
@@ -205,7 +247,7 @@ export default function NightCanvas() {
 
         // 地上那堆星星，微微发光
         p.fill(255, 220, 200, 16);
-        p.ellipse(lampX + 2, groundY + 5, 130, 26);
+        p.ellipse(coneBaseX, groundY + 5, 130, 26);
         for (const s of landed) {
           drawStar(s.x, s.y, s.r, s.rot, s.col, 200);
         }
@@ -219,6 +261,7 @@ export default function NightCanvas() {
         p.resizeCanvas(host.clientWidth, host.clientHeight);
         layout();
         renderBackground();
+        renderMoon();
       };
     };
 

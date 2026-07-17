@@ -168,11 +168,6 @@ export default function Home() {
           </g>
         </svg>
       </div>
-
-      <div className="home-captions">
-        <p className="home-hint">点点店里的东西试试</p>
-        <p className="home-footnote">深夜的店，不打烊，也不催你走</p>
-      </div>
     </div>
   );
 }
