@@ -3,89 +3,169 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
-  padding: 0 20px 40px;
+  padding: 12px 10px 40px;
 }
 
-.sky {
+.store-scene {
   width: 100%;
-  height: 140px;
-  position: relative;
-  flex-shrink: 0;
-  background-image: radial-gradient(1.5px 1.5px at 10% 30%, rgba(255, 255, 255, 0.85) 50%, transparent 51%),
-    radial-gradient(1px 1px at 60% 15%, rgba(255, 255, 255, 0.6) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 82% 45%, rgba(255, 255, 255, 0.75) 50%, transparent 51%),
-    radial-gradient(1px 1px at 30% 55%, rgba(255, 255, 255, 0.5) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 92% 75%, rgba(255, 255, 255, 0.8) 50%, transparent 51%),
-    radial-gradient(1px 1px at 18% 80%, rgba(255, 255, 255, 0.55) 50%, transparent 51%),
-    radial-gradient(1px 1px at 45% 35%, rgba(255, 255, 255, 0.5) 50%, transparent 51%);
+  max-width: 420px;
+  height: auto;
+  display: block;
 }
 
-.moon {
-  position: absolute;
-  top: 28px;
-  right: 16%;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 32%, #fff7e6, var(--color-lamp) 70%);
-  box-shadow: 0 0 40px 10px var(--color-lamp-glow);
+/* 星星闪烁 */
+.star {
+  fill: #fff;
+  opacity: 0.8;
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+.star-d1 {
+  animation-delay: 0.8s;
+}
+.star-d2 {
+  animation-delay: 1.6s;
+}
+.star-d3 {
+  animation-delay: 2.4s;
 }
 
-.store-sign {
-  width: 100%;
-  padding: 26px 20px;
-  text-align: center;
-  margin-bottom: 24px;
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.25;
+  }
 }
 
-.store-sign h1 {
-  font-size: 26px;
-  color: var(--color-lamp);
-  text-shadow: 0 0 18px var(--color-lamp-glow);
-  letter-spacing: 2px;
+/* 招牌文字 */
+.sign-text {
+  font-family: var(--font-round);
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  fill: var(--color-lamp);
+  animation: sign-breathe 4s ease-in-out infinite;
 }
 
-.store-tagline {
-  margin-top: 8px;
-  font-size: 13px;
-  color: var(--color-text-faint);
+@keyframes sign-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.82;
+  }
+}
+
+/* 招牌小灯泡 */
+.bulb {
+  fill: var(--color-lamp);
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+.bulb-d {
+  animation-delay: 1.2s;
+}
+
+/* 橱窗灯光呼吸 */
+.window-light {
+  animation: window-breathe 6s ease-in-out infinite;
+}
+
+@keyframes window-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.86;
+  }
+}
+
+/* 音符飘动 */
+.note-float {
+  font-size: 15px;
+  fill: var(--color-text-soft);
+  animation: float-up 3s ease-in-out infinite;
+}
+.note-float-d {
+  animation-delay: 1.5s;
+  font-size: 12px;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  40% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* 吊牌文字 */
+.tag-text {
+  font-size: 12px;
+  font-weight: 700;
+  fill: #6b4a3a;
   letter-spacing: 1px;
 }
 
-.shelf-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+/* 猫尾巴摇 */
+.cat-tail {
+  transform-origin: 208px 512px;
+  animation: tail-sway 3.4s ease-in-out infinite;
 }
 
-.shelf-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 26px 12px;
-  text-align: center;
+@keyframes tail-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
 }
 
-.shelf-icon {
-  font-size: 32px;
+/* 猫眨眼 */
+.cat-eye {
+  fill: var(--color-lamp);
+  animation: blink-eye 5s step-start infinite;
 }
 
-.shelf-label {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-text);
+@keyframes blink-eye {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  94%,
+  98% {
+    opacity: 0;
+  }
 }
 
-.shelf-desc {
-  font-size: 12px;
-  color: var(--color-text-faint);
+/* 热区交互 */
+.hotspot {
+  cursor: pointer;
+}
+.hotspot:active {
+  opacity: 0.8;
+}
+
+.home-hint {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--color-text-soft);
 }
 
 .home-footnote {
-  margin-top: 28px;
+  margin-top: 6px;
   font-size: 12px;
   color: var(--color-text-faint);
-  text-align: center;
 }
