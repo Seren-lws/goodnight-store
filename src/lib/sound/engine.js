@@ -118,22 +118,46 @@ function lfo(param, { rate, depth, base }) {
 
 const builders = {
   rain(dest) {
+    // 雨的底：亮而细碎的沙沙（太低会闷成瀑布）
     const base = loopSource('white');
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass';
+    hp.frequency.value = 600;
     const lp = ctx.createBiquadFilter();
     lp.type = 'lowpass';
-    lp.frequency.value = 1300;
+    lp.frequency.value = 5200;
     const g = ctx.createGain();
-    g.gain.value = 0.55;
-    base.connect(lp).connect(g).connect(dest);
-    // 偶尔的雨滴嗒嗒
-    const timer = setInterval(() => {
-      if (Math.random() < 0.55) {
-        burst(dest, { filterType: 'bandpass', freq: 3800 + Math.random() * 2500, q: 2, dur: 0.05, peak: Math.random() * 0.14 });
+    // 阵雨：整体强弱慢慢起伏
+    const gust = lfo(g.gain, { rate: 0.06, depth: 0.1, base: 0.48 });
+    base.connect(hp).connect(lp).connect(g).connect(dest);
+    // 密集的细雨嗒嗒
+    const tick = setInterval(() => {
+      if (Math.random() < 0.65) {
+        burst(dest, { filterType: 'bandpass', freq: 3200 + Math.random() * 3500, q: 3, dur: 0.02 + Math.random() * 0.02, peak: Math.random() * 0.09 });
       }
-    }, 110);
+    }, 70);
+    // 偶尔一颗打在窗沿上的清脆水珠（下降调的"啵"）
+    const plip = setInterval(() => {
+      if (Math.random() < 0.3) {
+        const t = ctx.currentTime;
+        const f0 = 1100 + Math.random() * 900;
+        const osc = ctx.createOscillator();
+        osc.frequency.setValueAtTime(f0, t);
+        osc.frequency.exponentialRampToValueAtTime(f0 * 0.55, t + 0.04);
+        const pg = ctx.createGain();
+        pg.gain.setValueAtTime(0, t);
+        pg.gain.linearRampToValueAtTime(0.04 + Math.random() * 0.05, t + 0.003);
+        pg.gain.setTargetAtTime(0.0001, t + 0.003, 0.03);
+        osc.connect(pg).connect(dest);
+        osc.start(t);
+        osc.stop(t + 0.2);
+      }
+    }, 420);
     return () => {
-      clearInterval(timer);
+      clearInterval(tick);
+      clearInterval(plip);
       base.stop();
+      gust.stop();
     };
   },
 
@@ -178,28 +202,56 @@ const builders = {
   },
 
   stream(dest) {
-    const base = loopSource('white');
-    const bp = ctx.createBiquadFilter();
-    bp.type = 'bandpass';
-    bp.frequency.value = 1900;
-    bp.Q.value = 1.1;
-    const g = ctx.createGain();
-    g.gain.value = 0.4;
-    const wobble = lfo(bp.frequency, { rate: 0.35, depth: 350, base: 1900 });
-    base.connect(bp).connect(g).connect(dest);
-    // 更低一层的水底咕噜
+    // 水底：低沉的哗哗（和雨声拉开频段）
     const low = loopSource('pink');
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 480;
+    const g = ctx.createGain();
+    g.gain.value = 0.55;
+    low.connect(lp).connect(g).connect(dest);
+    // 两个快速游走的共鸣，做出咕噜咕噜的流动感
+    const mid = loopSource('white');
+    const bp1 = ctx.createBiquadFilter();
+    bp1.type = 'bandpass';
+    bp1.Q.value = 6;
+    const g1 = ctx.createGain();
+    g1.gain.value = 0.14;
+    const gurgle1 = lfo(bp1.frequency, { rate: 1.3, depth: 320, base: 620 });
+    mid.connect(bp1).connect(g1).connect(dest);
+    const mid2 = loopSource('white');
     const bp2 = ctx.createBiquadFilter();
     bp2.type = 'bandpass';
-    bp2.frequency.value = 700;
-    bp2.Q.value = 1.5;
+    bp2.Q.value = 7;
     const g2 = ctx.createGain();
-    g2.gain.value = 0.25;
-    low.connect(bp2).connect(g2).connect(dest);
+    g2.gain.value = 0.09;
+    const gurgle2 = lfo(bp2.frequency, { rate: 0.8, depth: 420, base: 1050 });
+    mid2.connect(bp2).connect(g2).connect(dest);
+    // 溪流的灵魂：一颗颗上升调的小气泡"咕"
+    const bubbles = setInterval(() => {
+      if (Math.random() < 0.6) {
+        const t = ctx.currentTime;
+        const f0 = 180 + Math.random() * 420;
+        const dur = 0.035 + Math.random() * 0.05;
+        const osc = ctx.createOscillator();
+        osc.frequency.setValueAtTime(f0, t);
+        osc.frequency.exponentialRampToValueAtTime(f0 * (2 + Math.random()), t + dur);
+        const bg = ctx.createGain();
+        bg.gain.setValueAtTime(0, t);
+        bg.gain.linearRampToValueAtTime(0.05 + Math.random() * 0.09, t + 0.006);
+        bg.gain.setTargetAtTime(0.0001, t + 0.006, dur / 2);
+        osc.connect(bg).connect(dest);
+        osc.start(t);
+        osc.stop(t + dur + 0.2);
+      }
+    }, 160);
     return () => {
-      base.stop();
+      clearInterval(bubbles);
       low.stop();
-      wobble.stop();
+      mid.stop();
+      mid2.stop();
+      gurgle1.stop();
+      gurgle2.stop();
     };
   },
 
