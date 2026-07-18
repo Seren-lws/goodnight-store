@@ -28,6 +28,21 @@ export function saveSettings(settings) {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
 }
 
+const SOUND_PREFS_KEY = 'goodnight-store:sound-prefs';
+
+export function loadSoundPrefs() {
+  try {
+    const raw = localStorage.getItem(SOUND_PREFS_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+export function saveSoundPrefs(prefs) {
+  localStorage.setItem(SOUND_PREFS_KEY, JSON.stringify(prefs));
+}
+
 export function loadStories() {
   try {
     const raw = localStorage.getItem(STORIES_KEY);

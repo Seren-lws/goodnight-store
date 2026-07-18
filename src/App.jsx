@@ -4,7 +4,7 @@ import Notes from './pages/Notes';
 import Settings from './pages/Settings';
 import Story from './pages/Story';
 import StoryCollection from './pages/StoryCollection';
-import ComingSoon from './pages/ComingSoon';
+import Sounds from './pages/Sounds';
 
 export default function App() {
   return (
@@ -14,10 +14,7 @@ export default function App() {
       <Route path="/settings" element={<Settings />} />
       <Route path="/story" element={<Story />} />
       <Route path="/story/collection" element={<StoryCollection />} />
-      <Route
-        path="/sounds"
-        element={<ComingSoon title="声音角" icon="📻" note="白噪音、轻音乐，可以叠着放" />}
-      />
+      <Route path="/sounds" element={<Sounds />} />
     </Routes>
   );
 }

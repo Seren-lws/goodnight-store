@@ -1,0 +1,150 @@
+.sounds-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 20px 40px;
+  flex: 1;
+}
+
+.sounds-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sounds-header h1 {
+  font-size: 20px;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--color-text-soft);
+  flex-shrink: 0;
+}
+
+.header-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.sounds-hint {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-faint);
+}
+
+.sound-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.sound-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 14px 14px;
+  border-radius: var(--radius-lg);
+  transition: box-shadow 0.2s ease;
+}
+
+.sound-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.sound-icon {
+  font-size: 28px;
+  filter: grayscale(0.5) opacity(0.75);
+  transition: filter 0.25s ease;
+}
+
+.sound-icon-active {
+  filter: none;
+}
+
+.sound-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.sound-card-active .sound-label {
+  color: var(--color-lamp);
+}
+
+.sound-desc {
+  font-size: 11px;
+  color: var(--color-text-faint);
+}
+
+.sound-slider {
+  width: 100%;
+  accent-color: var(--color-lamp);
+  cursor: pointer;
+}
+
+.timer-section {
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timer-section h2 {
+  font-size: 15px;
+  color: var(--color-lamp);
+}
+
+.timer-desc {
+  font-size: 12.5px;
+  color: var(--color-text-faint);
+  line-height: 1.6;
+}
+
+.timer-chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.timer-chip {
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-soft);
+}
+
+.timer-chip-active {
+  background: var(--color-surface);
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  color: var(--color-lamp);
+}
+
+.stop-all-btn {
+  padding: 13px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-soft);
+}
+
+.sounds-note {
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--color-text-faint);
+  line-height: 1.6;
+  margin-top: auto;
+}
